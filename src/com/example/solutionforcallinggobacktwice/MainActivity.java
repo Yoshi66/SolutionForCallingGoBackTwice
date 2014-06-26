@@ -27,12 +27,12 @@ public class MainActivity extends Activity {
         	
         	
         });
-        webview.loadUrl("www.google.com");
+        webview.loadUrl("http://www.google.com");
     }
     
     @Override
     public void onBackPressed(){
-    	
+    	if(webview.canGoBack()){
     	if(FirstClick + 500 > System.currentTimeMillis()){
     		//the difference between firstClick and currentTime is shorter than 500 millisecond,
     			//it is probably because onBackPressed was executed twice automatically.
@@ -43,6 +43,10 @@ public class MainActivity extends Activity {
     		Log.d("goback() is called", "goback() is called");
     		webview.goBack();
     		FirstClick = System.currentTimeMillis();
+    		return;
+    	}
+    	}else{
+    		moveTaskToBack(true);
     	}
     	super.onBackPressed();
     }
